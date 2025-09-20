@@ -7,6 +7,7 @@ type VerificationStep = 'abha' | 'otp' | 'loading' | 'success';
 interface UserProfile {
   name: string;
   healthIdNumber: string;
+  healthId?: string;
   gender: string;
   dateOfBirth: string;
   mobile: string;
@@ -17,6 +18,7 @@ interface HealthData {
   healthRecords: any;
   riskFactors: any;
   gamificationData: any;
+  analysis?: any;
 }
 
 // Import mock data
@@ -85,6 +87,8 @@ const mockHealthRecords: Record<string, any> = {
   }
 };
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+
 export default function VerifyPage() {
   const router = useRouter();
   const [step, setStep] = useState<VerificationStep>('abha');
@@ -115,29 +119,55 @@ export default function VerifyPage() {
   };
 
   const handleAbhaSubmit = async () => {
+    setError('');
     const cleanId = abhaId.replace(/-/g, '');
-    
+
     if (cleanId.length !== 14) {
       setError('Please enter a valid 14-digit ABHA number');
       return;
     }
 
     setIsLoading(true);
-    setError('');
+    // simulate network latency/validation
+    await new Promise((r) => setTimeout(r, 700));
 
-    // Simulate API call
-    setTimeout(() => {
-      if (mockABHAProfiles[cleanId]) {
-        setStep('otp');
-        setError('');
-      } else {
-        setError('ABHA ID not found. Try: 14123456789012');
-      }
-      setIsLoading(false);
-    }, 1000);
+    if (mockABHAProfiles[cleanId]) {
+      setStep('otp');
+      setError('');
+    } else {
+      setError('ABHA ID not found. Try: 14123456789012');
+    }
+
+    setIsLoading(false);
   };
 
+  // helper: login to backend (dev flow) and return token
+  async function backendLoginForDev(username: string, password = 'devpass') {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const json = await res.json();
+    if (!json.ok) throw new Error(json.error || 'login failed');
+    return json.token;
+  }
+
+  // helper: simple POST wrapper that includes JWT
+  async function postWithAuth(path: string, token: string, body: any) {
+    const res = await fetch(`${API_BASE}${path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+    return res.json();
+  }
+
   const handleOTPVerification = async () => {
+    setError('');
     if (otp !== '123456') {
       setError('Invalid OTP. Use: 123456');
       return;
@@ -145,26 +175,88 @@ export default function VerifyPage() {
 
     setIsLoading(true);
     const cleanId = abhaId.replace(/-/g, '');
-    
-    setTimeout(() => {
+    try {
+      // small ui delay
+      await new Promise((r) => setTimeout(r, 600));
+
       const profile = mockABHAProfiles[cleanId];
       const records = mockHealthRecords[cleanId] || mockHealthRecords["14123456789012"];
-      
-      setHealthData({
+
+      // Build the local healthData first
+      const localHealthData: HealthData = {
         profile,
         healthRecords: records.records,
         riskFactors: records.riskFactors,
-        gamificationData: records.gamificationData
+        gamificationData: records.gamificationData,
+      };
+
+      // 1) login to backend (dev helper — will create user if missing)
+      // use a deterministic dev username derived from profile name
+      const devUsername = profile.name.toLowerCase().replace(/\s+/g, '');
+      const token = await backendLoginForDev(devUsername, 'devpass');
+
+      // persist token in sessionStorage for frontend use
+      sessionStorage.setItem('apiToken', token);
+
+      // 2) create health record on backend (so server has data to merge)
+      const payload = {
+        // map mock records to payload fields expected by backend
+        last_hba1c: Number((records.records[1]?.tests?.find((t: any) => t.name === 'HbA1c')?.value || '').replace('%', '')) || null,
+        bmi: 29.4, // demo value — replace with real mapping if available
+        medications: records.records[0]?.medications || [],
+        tests: records.records[1]?.tests || []
+      };
+
+      await postWithAuth('/api/health', token, {
+        userId: profile.healthId || profile.healthIdNumber || devUsername,
+        source: 'abha-mock',
+        payload
       });
-      
+
+      // 3) call analyze endpoint with lifestyle defaults (you can expose UI later)
+      const lifestyleDefaults = {
+        exercise: 'rare',
+        diet: 'average',
+        sleep: '5-6h',
+        stress: 'high'
+      };
+
+      const analyzeRes = await postWithAuth('/api/analyze', token, {
+        userId: profile.healthId || profile.healthIdNumber || devUsername,
+        lifestyle: lifestyleDefaults,
+        healthDatabases: ['NHANES', 'WHO']
+      });
+
+      // analyzeRes is expected shape: { ok: true, analysis: {...} } or fallback
+      let analysis = null;
+      if (analyzeRes && analyzeRes.ok && analyzeRes.analysis) {
+        analysis = analyzeRes.analysis;
+      } else {
+        // backend may return { ok:false, error: '...' } — show warning but proceed
+        console.warn('Analyze call failed or returned fallback:', analyzeRes);
+      }
+
+      // combine and save into sessionStorage for Dashboard
+      const combined = {
+        ...localHealthData,
+        analysis
+      };
+
+      sessionStorage.setItem('healthData', JSON.stringify(combined));
+      setHealthData(combined);
       setStep('success');
+
+    } catch (err: any) {
+      console.error('verify backend error', err);
+      setError(err?.message || 'Failed to connect to backend. Check console for details.');
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const proceedToDashboard = () => {
     if (healthData) {
-      sessionStorage.setItem('healthData', JSON.stringify(healthData));
+      // already saved to sessionStorage in success path; just navigate
       router.push('/dashboard');
     }
   };
@@ -175,7 +267,7 @@ export default function VerifyPage() {
     <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-purple-600">
       <div className="bg-white p-8 rounded-3xl shadow-2xl w-full max-w-md mx-4">
         <div className="h-1 bg-gray-200 rounded-full mb-8 overflow-hidden">
-          <div 
+          <div
             className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 rounded-full"
             style={{ width: step === 'abha' ? `${progress}%` : step === 'otp' ? '50%' : '100%' }}
           />
@@ -186,7 +278,7 @@ export default function VerifyPage() {
             <h1 className="text-3xl font-bold text-gray-800 text-center mb-2">
               Verify ABHA ID
             </h1>
-            
+
             <p className="text-gray-500 text-center mb-8">
               Enter your ABHA ID to access health records
             </p>
@@ -231,7 +323,7 @@ export default function VerifyPage() {
                 value={otp}
                 onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, '').slice(0, 6))}
                 placeholder="123456"
-                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-2xl text-center tracking-widest"
+                className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl text-2xl text-center text-gray-500 tracking-widest"
                 maxLength={6}
               />
               <p className="text-xs text-gray-500 mt-2 text-center">
@@ -278,7 +370,7 @@ export default function VerifyPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Streak:</span>
-                  <span className="font-bold">{healthData.gamificationData.streakDays} days</span>
+                  <span className="font-bold text-gray-500">{healthData.gamificationData.streakDays} days</span>
                 </div>
               </div>
             </div>
@@ -291,6 +383,9 @@ export default function VerifyPage() {
             </button>
           </>
         )}
+
+        {/* small global error */}
+        {error && step !== 'abha' && <p className="text-red-500 text-sm mt-4 text-center">{error}</p>}
       </div>
     </main>
   );

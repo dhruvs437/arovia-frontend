@@ -7,6 +7,7 @@ interface HealthData {
   healthRecords: any[];
   riskFactors: any;
   gamificationData: any;
+  analysis?: any;
 }
 
 export default function DashboardPage() {
@@ -20,7 +21,15 @@ export default function DashboardPage() {
       router.push('/verify');
       return;
     }
-    setHealthData(JSON.parse(storedData));
+    const parsed: HealthData = JSON.parse(storedData);
+
+    // If analysis is present, convert predictions -> riskFactors and merge
+    if (parsed.analysis && Array.isArray(parsed.analysis.predictions)) {
+      const predictedRisks = predictionsToRiskFactors(parsed.analysis.predictions || []);
+      parsed.riskFactors = { ...(parsed.riskFactors || {}), ...predictedRisks };
+    }
+
+    setHealthData(parsed);
   }, [router]);
 
   if (!healthData) {
@@ -116,9 +125,9 @@ export default function DashboardPage() {
               <h3 className="text-gray-600 text-sm font-semibold uppercase tracking-wider">
                 Primary Health Risks
               </h3>
-              {Object.entries(healthData.riskFactors).map(([condition, data]: [string, any]) => (
+              {Object.entries(healthData.riskFactors || {}).map(([condition, data]: [string, any]) => (
                 <div key={condition} className="flex items-center justify-between">
-                  <span className="text-gray-700 capitalize">{condition}</span>
+                  <span className="text-gray-700 capitalize">{condition.replace(/_/g, ' ')}</span>
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getRiskColor(data.risk)}`}>
                     {data.risk} ({data.score}%)
                   </span>
@@ -172,7 +181,7 @@ export default function DashboardPage() {
           {activeTab === 'overview' && (
             <div className="space-y-6">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">Recent Health Metrics</h2>
-              
+
               {/* Latest Test Results */}
               <div className="grid md:grid-cols-2 gap-6">
                 {healthData.healthRecords[1]?.tests?.map((test: any, index: number) => (
@@ -246,12 +255,55 @@ export default function DashboardPage() {
                 </button>
               </div>
 
+              {/* AI Summary */}
+              {healthData.analysis?.summary && (
+                <div className="bg-white border rounded-lg p-4">
+                  <h4 className="font-semibold">AI Summary</h4>
+                  <p className="text-gray-700 mt-2">{healthData.analysis.summary}</p>
+                </div>
+              )}
+
+              {/* Predictions list (if available) */}
+              {Array.isArray(healthData.analysis?.predictions) && healthData.analysis.predictions.length > 0 && (
+                <div className="space-y-4 mt-4">
+                  {healthData.analysis.predictions.map((p: any, i: number) => (
+                    <div key={i} className="bg-gray-50 rounded-xl p-4 border">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-bold">{p.condition}</h4>
+                          <p className="text-xs text-gray-500">{p.years} {p.years === 1 ? 'year' : 'years'} from now</p>
+                        </div>
+                        <div className="text-right">
+                          <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                            p.probability_pct >= 70 ? 'bg-red-100 text-red-800' :
+                            p.probability_pct >= 50 ? 'bg-yellow-100 text-yellow-800' : 'bg-green-100 text-green-800'
+                          }`}>{p.probability_pct}% Risk</span>
+                          {p.preventable && <p className="text-xs text-green-600 mt-1">✓ Preventable</p>}
+                        </div>
+                      </div>
+
+                      {p.rationale && <p className="text-gray-700 mt-3">{p.rationale}</p>}
+
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {(p.interventions || []).map((it: string, idx: number) => (
+                          <span key={idx} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">{it}</span>
+                        ))}
+                      </div>
+
+                      {p.citations && p.citations.length > 0 && (
+                        <p className="text-xs text-gray-500 mt-2">Citations: {p.citations.join(', ')}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
               {/* Risk Factors Visualization */}
-              <div className="space-y-4">
-                {Object.entries(healthData.riskFactors).map(([condition, data]: [string, any]) => (
+              <div className="space-y-4 mt-6">
+                {Object.entries(healthData.riskFactors || {}).map(([condition, data]: [string, any]) => (
                   <div key={condition} className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold text-gray-800 capitalize">{condition} Risk</span>
+                      <span className="font-semibold text-gray-800 capitalize">{condition.replace(/_/g, ' ')} Risk</span>
                       <span className="text-sm text-gray-600">{data.score}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-3">
@@ -263,7 +315,7 @@ export default function DashboardPage() {
                         style={{ width: `${data.score}%` }}
                       />
                     </div>
-                    <p className="text-xs text-gray-500">Trend: {data.trend}</p>
+                    <p className="text-xs text-gray-500">Trend: {data.trend || 'N/A'}</p>
                   </div>
                 ))}
               </div>
@@ -278,13 +330,13 @@ export default function DashboardPage() {
             <h3 className="font-semibold text-gray-800 group-hover:text-purple-600">Book Appointment</h3>
             <p className="text-gray-600 text-sm mt-1">Schedule a consultation</p>
           </button>
-          
+
           <button className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-left group">
             <div className="text-3xl mb-3">💊</div>
             <h3 className="font-semibold text-gray-800 group-hover:text-purple-600">Medicine Reminder</h3>
             <p className="text-gray-600 text-sm mt-1">Set medication alerts</p>
           </button>
-          
+
           <button className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-left group">
             <div className="text-3xl mb-3">👥</div>
             <h3 className="font-semibold text-gray-800 group-hover:text-purple-600">Join Community</h3>
@@ -294,4 +346,27 @@ export default function DashboardPage() {
       </main>
     </div>
   );
+}
+
+/**
+ * Helper: convert model predictions -> dashboard riskFactors shape
+ * expected prediction fields: { condition, probability_pct, rationale, interventions }
+ */
+function predictionsToRiskFactors(predictions: any[]) {
+  const out: Record<string, any> = {};
+  if (!Array.isArray(predictions)) return out;
+  predictions.forEach(pred => {
+    const key = pred.condition.toLowerCase().replace(/\s+/g, '_'); // e.g. "Type 2 Diabetes" -> "type_2_diabetes"
+    const score = Math.min(100, Math.round((pred.probability_pct ?? pred.probability ?? 0) || 0));
+    const riskLabel = score >= 70 ? 'High' : score >= 40 ? 'Medium' : 'Low';
+    out[key] = {
+      risk: riskLabel,
+      score,
+      trend: pred.trend || 'N/A',
+      rationale: pred.rationale || '',
+      interventions: pred.interventions || [],
+      citations: pred.citations || []
+    };
+  });
+  return out;
 }
