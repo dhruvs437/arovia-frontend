@@ -194,35 +194,35 @@ export default function ComorbidityPage() {
   const heroSummary = analysisRaw?.summary ?? healthData?.analysis?.summary ?? 'See how changing lifestyle alters your risk timeline.';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-sky-50">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/3 w-96 h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-4000"></div>
       </div>
 
-      <header className="relative backdrop-blur-xl bg-gradient-to-r from-purple-600/80 to-pink-600/80 text-white border-b border-white/10">
+      <header className="relative backdrop-blur-xl bg-white/85 border-b border-slate-200 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
           <div className="animate-fadeInLeft">
-            <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-200">
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-teal-600 to-sky-600 bg-clip-text text-transparent">
               Personalized Comorbidity Dashboard
             </h1>
-            <p className="text-purple-100 mt-2 max-w-2xl">
-              Hi <span className="font-bold text-white">{userName}</span> — {heroSummary}
+            <p className="text-slate-600 mt-2 max-w-2xl">
+              Hi <span className="font-bold text-slate-800">{userName}</span> — {heroSummary}
             </p>
           </div>
 
           <div className="flex items-center gap-3 animate-fadeInRight">
             <button 
               onClick={() => router.push('/dashboard')} 
-              className="backdrop-blur-sm bg-white/10 hover:bg-white/20 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border border-white/20"
+              className="bg-white hover:bg-slate-50 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 border border-slate-300 text-slate-700"
             >
               Back to Dashboard
             </button>
             <button
               onClick={() => { setStep('lifestyle'); setError(null); }}
-              className="bg-white text-purple-700 px-5 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all duration-300"
+              className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg hover:scale-105 transition-all duration-300"
             >
               Edit Lifestyle
             </button>
@@ -236,61 +236,61 @@ export default function ComorbidityPage() {
           <section className="lg:col-span-2 space-y-6">
             {/* Big Stats row */}
             <div className="grid grid-cols-3 gap-4">
-              <div className="group backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 hover:scale-105 transition-all duration-300 animate-fadeInUp">
+              <div className="group backdrop-blur-xl bg-white/95 rounded-2xl shadow-xl p-6 border border-teal-200 hover:scale-105 transition-all duration-300 animate-fadeInUp">
                 <div className="flex items-center justify-between mb-3">
-                  <div className="text-xs text-purple-200 font-semibold uppercase tracking-wider">Health Score</div>
-                  <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                  <div className="text-xs text-teal-600 font-bold uppercase tracking-wider">Health Score</div>
+                  <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
                 </div>
-                <div className="text-4xl font-bold text-white">{healthData?.gamificationData?.healthScore ?? '—'}</div>
-                <div className="text-sm text-purple-300 mt-2">Current wellness index</div>
-                <div className="mt-3 h-1 bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-purple-400 to-pink-400 rounded-full transition-all duration-1000" style={{ width: `${healthData?.gamificationData?.healthScore ?? 0}%` }}></div>
+                <div className="text-4xl font-bold text-slate-800">{healthData?.gamificationData?.healthScore ?? '—'}</div>
+                <div className="text-sm text-slate-600 mt-2">Current wellness index</div>
+                <div className="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full transition-all duration-1000" style={{ width: `${healthData?.gamificationData?.healthScore ?? 0}%` }}></div>
                 </div>
               </div>
 
-              <div className="group backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{ animationDelay: '100ms' }}>
+              <div className="group backdrop-blur-xl bg-white/95 rounded-2xl shadow-xl p-6 border border-emerald-200 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{ animationDelay: '100ms' }}>
                 <div className="flex items-center justify-between mb-3">
-                  <div className="text-xs text-emerald-200 font-semibold uppercase tracking-wider">Streak</div>
+                  <div className="text-xs text-emerald-700 font-bold uppercase tracking-wider">Streak</div>
                   <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
                 </div>
-                <div className="text-4xl font-bold text-emerald-400">
-                  {healthData?.gamificationData?.streakDays ?? 0}<span className="text-2xl text-emerald-300">d</span>
+                <div className="text-4xl font-bold text-emerald-600">
+                  {healthData?.gamificationData?.streakDays ?? 0}<span className="text-2xl text-emerald-500">d</span>
                 </div>
-                <div className="text-sm text-emerald-200 mt-2">Healthy habit streak</div>
+                <div className="text-sm text-slate-600 mt-2">Healthy habit streak</div>
                 <div className="mt-3 flex gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <div key={i} className={`h-1 flex-1 rounded-full ${i < Math.min(5, Math.floor((healthData?.gamificationData?.streakDays ?? 0) / 7)) ? 'bg-emerald-400' : 'bg-white/10'}`}></div>
+                    <div key={i} className={`h-2 flex-1 rounded-full ${i < Math.min(5, Math.floor((healthData?.gamificationData?.streakDays ?? 0) / 7)) ? 'bg-emerald-400' : 'bg-slate-200'}`}></div>
                   ))}
                 </div>
               </div>
 
-              <div className="group backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{ animationDelay: '200ms' }}>
+              <div className="group backdrop-blur-xl bg-white/95 rounded-2xl shadow-xl p-6 border border-amber-200 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{ animationDelay: '200ms' }}>
                 <div className="flex items-center justify-between mb-3">
-                  <div className="text-xs text-amber-200 font-semibold uppercase tracking-wider">Top Risk</div>
+                  <div className="text-xs text-amber-700 font-bold uppercase tracking-wider">Top Risk</div>
                   <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
                 </div>
-                <div className="text-2xl font-bold text-amber-400 truncate">
+                <div className="text-2xl font-bold text-amber-600 truncate">
                   {healthData?.riskFactors ? Object.keys(healthData.riskFactors)[0].replace(/_/g, ' ') : '—'}
                 </div>
-                <div className="text-sm text-amber-200 mt-2">Most pressing risk</div>
+                <div className="text-sm text-slate-600 mt-2">Most pressing risk</div>
                 <div className="mt-3 flex gap-1">
-                  <div className="h-1 flex-1 bg-amber-400 rounded-full"></div>
-                  <div className="h-1 flex-1 bg-amber-400/60 rounded-full"></div>
-                  <div className="h-1 flex-1 bg-white/10 rounded-full"></div>
+                  <div className="h-2 flex-1 bg-amber-400 rounded-full"></div>
+                  <div className="h-2 flex-1 bg-amber-300 rounded-full"></div>
+                  <div className="h-2 flex-1 bg-slate-200 rounded-full"></div>
                 </div>
               </div>
             </div>
 
             {/* Middle: Interactive area */}
             {step === 'lifestyle' && (
-              <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl shadow-2xl p-8 border border-white/20 animate-fadeIn">
+              <div className="backdrop-blur-xl bg-white/95 rounded-3xl shadow-2xl p-8 border border-slate-200 animate-fadeIn">
                 <div className="flex items-center justify-between mb-8">
                   <div>
-                    <h2 className="text-2xl font-bold text-white">Update Your Lifestyle</h2>
-                    <p className="text-purple-200 mt-1">Your selections will create a personalized health projection</p>
+                    <h2 className="text-2xl font-bold text-slate-800">Update Your Lifestyle</h2>
+                    <p className="text-slate-600 mt-1">Your selections will create a personalized health projection</p>
                   </div>
                   <div className="hidden lg:block">
-                    <svg className="w-16 h-16 text-purple-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-16 h-16 text-teal-400 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                   </div>
@@ -308,14 +308,14 @@ export default function ComorbidityPage() {
                     { k: 'screenTime', label: '📱 Screen Time', opts: [['','Choose'],['less2','<2h'],['2-4','2-4h'],['4-8','4-8h'],['more8','>8h']] }
                   ].map((f, index) => (
                     <div key={f.k} className="group animate-fadeInUp" style={{ animationDelay: `${index * 50}ms` }}>
-                      <label className="text-sm font-bold text-purple-200 mb-2 block">{f.label}</label>
+                      <label className="text-sm font-bold text-slate-700 mb-2 block">{f.label}</label>
                       <select
-                        className="w-full rounded-xl backdrop-blur-sm bg-white/10 border border-white/20 px-4 py-3 text-white placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-300"
+                        className="w-full rounded-xl bg-white border border-slate-300 px-4 py-3 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all duration-300 hover:border-teal-300"
                         value={(lifestyleData as any)[f.k]}
                         onChange={(e) => setLifestyleData(prev => ({ ...prev, [f.k]: e.target.value }))}
                       >
                         {f.opts.map((o:any, i:number)=> (
-                          <option key={i} value={o[0]} className="bg-purple-900 text-white">{o[1]}</option>
+                          <option key={i} value={o[0]} className="bg-white text-slate-800">{o[1]}</option>
                         ))}
                       </select>
                     </div>
@@ -323,7 +323,7 @@ export default function ComorbidityPage() {
                 </div>
 
                 {error && (
-                  <div className="mt-6 p-4 bg-red-500/20 backdrop-blur-sm border border-red-500/30 rounded-xl text-red-200">
+                  <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700">
                     {error}
                   </div>
                 )}
@@ -332,16 +332,16 @@ export default function ComorbidityPage() {
                   <button
                     onClick={handleLifestyleSubmit}
                     disabled={isAnalyzing}
-                    className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-bold shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-60 disabled:hover:scale-100"
+                    className="group relative overflow-hidden bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-bold shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-60 disabled:hover:scale-100"
                   >
                     <span className="relative z-10">
                       {isAnalyzing ? 'Analyzing…' : 'Project My Risk'}
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-teal-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </button>
                   <button 
                     onClick={() => router.push('/dashboard')} 
-                    className="backdrop-blur-sm bg-white/10 hover:bg-white/20 px-8 py-4 rounded-xl border border-white/20 text-white font-medium transition-all duration-300"
+                    className="bg-white hover:bg-slate-50 px-8 py-4 rounded-xl border border-slate-300 text-slate-700 font-medium transition-all duration-300"
                   >
                     Cancel
                   </button>
@@ -350,39 +350,39 @@ export default function ComorbidityPage() {
             )}
 
             {step === 'analysis' && (
-              <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl shadow-2xl p-12 text-center border border-white/20 animate-fadeIn">
+              <div className="backdrop-blur-xl bg-white/95 rounded-3xl shadow-2xl p-12 text-center border border-slate-200 animate-fadeIn">
                 <div className="relative mx-auto w-32 h-32 mb-6">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 animate-spin-slow"></div>
-                  <div className="absolute inset-2 rounded-full bg-gradient-to-br from-purple-900 to-pink-900"></div>
-                  <div className="absolute inset-4 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-400 to-cyan-400 animate-spin-slow"></div>
+                  <div className="absolute inset-2 rounded-full bg-white"></div>
+                  <div className="absolute inset-4 rounded-full bg-gradient-to-br from-teal-300 to-cyan-300 animate-pulse"></div>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">Creating Your Projection</h3>
-                <p className="text-purple-200 max-w-md mx-auto">
+                <h3 className="text-2xl font-bold text-slate-800 mb-3">Creating Your Projection</h3>
+                <p className="text-slate-600 max-w-md mx-auto">
                   We're combining your historical health data with the lifestyle you selected to estimate baseline and projection scenarios.
                 </p>
                 <div className="mt-8 flex justify-center gap-2">
                   {[...Array(3)].map((_, i) => (
-                    <div key={i} className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: `${i * 200}ms` }}></div>
+                    <div key={i} className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: `${i * 200}ms` }}></div>
                   ))}
                 </div>
               </div>
             )}
 
             {step === 'results' && (
-              <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl shadow-2xl p-8 border border-white/20 animate-fadeIn">
+              <div className="backdrop-blur-xl bg-white/95 rounded-3xl shadow-2xl p-8 border border-slate-200 animate-fadeIn">
                 <div className="flex flex-col lg:flex-row items-start justify-between gap-4 mb-8">
                   <div>
-                    <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200">
+                    <h3 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
                       {userName}'s Health Projection
                     </h3>
-                    <p className="text-purple-300 mt-2">
+                    <p className="text-slate-600 mt-2">
                       {analysisRaw?.summary ?? healthData?.analysis?.summary ?? 'Personalized projection based on records & lifestyle.'}
                     </p>
                   </div>
 
-                  <div className="backdrop-blur-sm bg-white/10 rounded-xl px-4 py-2 border border-white/20">
-                    <div className="text-xs text-purple-300">Updated</div>
-                    <div className="font-bold text-white">
+                  <div className="bg-teal-50 rounded-xl px-4 py-2 border border-teal-200">
+                    <div className="text-xs text-teal-600">Updated</div>
+                    <div className="font-bold text-teal-800">
                       {(analysisRaw?.generated_on || healthData?.analysis?.generated_on || new Date().toISOString()).slice(0,10)}
                     </div>
                   </div>
@@ -390,33 +390,33 @@ export default function ComorbidityPage() {
 
                 {/* Comparison cards */}
                 <div className="grid md:grid-cols-2 gap-6 mb-8">
-                  <div className="relative overflow-hidden backdrop-blur-sm bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-2xl p-6 border border-white/20 hover:scale-[1.02] transition-all duration-300">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500 rounded-full filter blur-3xl opacity-10"></div>
+                  <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-gray-50 rounded-2xl p-6 border border-slate-200 hover:scale-[1.02] transition-all duration-300 shadow-lg">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-slate-300 rounded-full filter blur-3xl opacity-20"></div>
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <div className="text-xs text-purple-300 font-semibold uppercase tracking-wider">Baseline (Current)</div>
-                          <div className="text-xl font-bold text-white mt-1">What your records show today</div>
+                          <div className="text-xs text-slate-600 font-bold uppercase tracking-wider">Baseline (Current)</div>
+                          <div className="text-xl font-bold text-slate-800 mt-1">What your records show today</div>
                         </div>
-                        <div className="text-xs text-purple-400 backdrop-blur-sm bg-white/5 px-3 py-1 rounded-full">Records</div>
+                        <div className="text-xs text-slate-600 bg-slate-100 px-3 py-1 rounded-full">Records</div>
                       </div>
 
                       <div className="space-y-3">
                         {(healthData?.analysis?.baseline?.predictions ?? []).length > 0 ? (healthData.analysis.baseline.predictions).map((p:any,i:number)=>(
-                          <div key={i} className="backdrop-blur-sm bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all">
+                          <div key={i} className="bg-white/90 rounded-xl p-4 border border-slate-100 hover:shadow-md transition-all">
                             <div className="flex items-center justify-between gap-4">
                               <div>
-                                <div className="font-bold text-white">{p.condition}</div>
-                                <div className="text-xs text-purple-300 mt-1">{p.rationale ?? ''}</div>
+                                <div className="font-bold text-slate-800">{p.condition}</div>
+                                <div className="text-xs text-slate-600 mt-1">{p.rationale ?? ''}</div>
                               </div>
                               <div className="text-right">
-                                <div className="text-lg font-bold text-white">{p.probability_pct ?? p.probability ?? '-'}%</div>
-                                <div className="w-24 h-2 bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div className="text-lg font-bold text-slate-900">{p.probability_pct ?? p.probability ?? '-'}%</div>
+                                <div className="w-24 h-2 bg-slate-200 rounded-full mt-2 overflow-hidden">
                                   <div 
                                     className={`h-full rounded-full transition-all duration-1000 ${
-                                      Number(p.probability_pct ?? p.probability) >= 70 ? 'bg-gradient-to-r from-red-400 to-rose-400' : 
-                                      Number(p.probability_pct ?? p.probability) >= 50 ? 'bg-gradient-to-r from-amber-400 to-yellow-400' : 
-                                      'bg-gradient-to-r from-emerald-400 to-green-400'
+                                      Number(p.probability_pct ?? p.probability) >= 70 ? 'bg-gradient-to-r from-rose-400 to-red-500' : 
+                                      Number(p.probability_pct ?? p.probability) >= 50 ? 'bg-gradient-to-r from-amber-400 to-yellow-500' : 
+                                      'bg-gradient-to-r from-emerald-400 to-green-500'
                                     }`} 
                                     style={{ width: `${Number(p.probability_pct ?? p.probability)}%` }}
                                   />
@@ -424,38 +424,38 @@ export default function ComorbidityPage() {
                               </div>
                             </div>
                           </div>
-                        )) : <div className="text-sm text-purple-400">No baseline predictions available.</div>}
+                        )) : <div className="text-sm text-slate-500">No baseline predictions available.</div>}
                       </div>
                     </div>
                   </div>
 
-                  <div className="relative overflow-hidden backdrop-blur-sm bg-gradient-to-br from-emerald-500/10 to-teal-500/10 rounded-2xl p-6 border border-white/20 hover:scale-[1.02] transition-all duration-300">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500 rounded-full filter blur-3xl opacity-10"></div>
+                  <div className="relative overflow-hidden bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-200 hover:scale-[1.02] transition-all duration-300 shadow-lg">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-300 rounded-full filter blur-3xl opacity-20"></div>
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-4">
                         <div>
-                          <div className="text-xs text-emerald-300 font-semibold uppercase tracking-wider">Projection (With Lifestyle)</div>
-                          <div className="text-xl font-bold text-white mt-1">If you keep this routine</div>
+                          <div className="text-xs text-emerald-700 font-bold uppercase tracking-wider">Projection (With Lifestyle)</div>
+                          <div className="text-xl font-bold text-slate-800 mt-1">If you keep this routine</div>
                         </div>
-                        <div className="text-xs text-emerald-400 backdrop-blur-sm bg-white/5 px-3 py-1 rounded-full">AI Model</div>
+                        <div className="text-xs text-emerald-700 bg-emerald-100 px-3 py-1 rounded-full">AI Model</div>
                       </div>
 
                       <div className="space-y-3">
                         {(analysisRaw?.projection?.predictions ?? analysisRaw?.predictions ?? predictions).map((p:any,i:number)=>(
-                          <div key={i} className="backdrop-blur-sm bg-white/5 rounded-xl p-4 border border-white/10 hover:bg-white/10 transition-all">
+                          <div key={i} className="bg-white/90 rounded-xl p-4 border border-emerald-100 hover:shadow-md transition-all">
                             <div className="flex items-center justify-between gap-4">
                               <div>
-                                <div className="font-bold text-white">{p.condition}</div>
-                                <div className="text-xs text-emerald-300 mt-1">{p.rationale ?? ''}</div>
+                                <div className="font-bold text-slate-800">{p.condition}</div>
+                                <div className="text-xs text-emerald-600 mt-1">{p.rationale ?? ''}</div>
                               </div>
                               <div className="text-right">
-                                <div className="text-lg font-bold text-white">{p.probability_pct ?? p.probability ?? p.prob ?? 0}%</div>
-                                <div className="w-24 h-2 bg-white/10 rounded-full mt-2 overflow-hidden">
+                                <div className="text-lg font-bold text-slate-900">{p.probability_pct ?? p.probability ?? p.prob ?? 0}%</div>
+                                <div className="w-24 h-2 bg-slate-200 rounded-full mt-2 overflow-hidden">
                                   <div 
                                     className={`h-full rounded-full transition-all duration-1000 ${
-                                      Number(p.probability_pct ?? p.probability ?? p.prob) >= 70 ? 'bg-gradient-to-r from-red-400 to-rose-400' : 
-                                      Number(p.probability_pct ?? p.probability ?? p.prob) >= 50 ? 'bg-gradient-to-r from-amber-400 to-yellow-400' : 
-                                      'bg-gradient-to-r from-emerald-400 to-green-400'
+                                      Number(p.probability_pct ?? p.probability ?? p.prob) >= 70 ? 'bg-gradient-to-r from-rose-400 to-red-500' : 
+                                      Number(p.probability_pct ?? p.probability ?? p.prob) >= 50 ? 'bg-gradient-to-r from-amber-400 to-yellow-500' : 
+                                      'bg-gradient-to-r from-emerald-400 to-green-500'
                                     }`} 
                                     style={{ width: `${Number(p.probability_pct ?? p.probability ?? p.prob)}%` }}
                                   />
@@ -471,20 +471,20 @@ export default function ComorbidityPage() {
 
                 {/* Deltas */}
                 <div className="mb-8">
-                  <h4 className="text-lg font-bold text-purple-200 mb-4">Projected Change Analysis</h4>
+                  <h4 className="text-lg font-bold text-slate-700 mb-4">Projected Change Analysis</h4>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {(deltas.length ? deltas : (predictions.slice(0,3).map(p=>({condition:p.condition, delta_pct:0})))).map((d:any,i:number)=>(
-                      <div key={i} className="backdrop-blur-sm bg-white/5 rounded-xl p-5 border border-white/10 hover:scale-105 transition-all duration-300 animate-fadeInUp" style={{ animationDelay: `${i * 100}ms` }}>
+                      <div key={i} className="bg-gradient-to-r from-teal-50 to-cyan-50 rounded-xl p-5 border border-teal-200 hover:scale-105 transition-all duration-300 animate-fadeInUp shadow-md" style={{ animationDelay: `${i * 100}ms` }}>
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="text-xs text-purple-400 font-semibold uppercase tracking-wider">Condition</div>
-                            <div className="font-bold text-white mt-1">{d.condition}</div>
+                            <div className="text-xs text-teal-600 font-bold uppercase tracking-wider">Condition</div>
+                            <div className="font-bold text-slate-800 mt-1">{d.condition}</div>
                           </div>
                           <div className="text-right">
-                            <div className={`text-2xl font-bold ${d.delta_pct < 0 ? 'text-emerald-400' : d.delta_pct > 0 ? 'text-rose-400' : 'text-gray-400'}`}>
+                            <div className={`text-2xl font-bold ${d.delta_pct < 0 ? 'text-emerald-600' : d.delta_pct > 0 ? 'text-rose-600' : 'text-slate-500'}`}>
                               {d.delta_pct > 0 ? '+' : ''}{d.delta_pct ?? 0}%
                             </div>
-                            <div className="text-xs text-purple-400">vs baseline</div>
+                            <div className="text-xs text-slate-600">vs baseline</div>
                           </div>
                         </div>
                       </div>
@@ -497,13 +497,13 @@ export default function ComorbidityPage() {
 
           {/* Right column */}
           <aside className="space-y-6">
-            <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 animate-fadeInRight">
+            <div className="backdrop-blur-xl bg-white/95 rounded-2xl shadow-xl p-6 border border-teal-200 animate-fadeInRight">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <div className="text-xs text-purple-300 font-semibold uppercase tracking-wider">AI Explainability</div>
-                  <div className="font-bold text-white mt-1">Top Risk Factors</div>
+                  <div className="text-xs text-teal-600 font-bold uppercase tracking-wider">AI Explainability</div>
+                  <div className="font-bold text-slate-800 mt-1">Top Risk Factors</div>
                 </div>
-                <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -512,22 +512,22 @@ export default function ComorbidityPage() {
                 {topFeatures.length ? topFeatures.map((f:any,i:number)=>(
                   <div key={i} className="animate-fadeInUp" style={{ animationDelay: `${i * 100}ms` }}>
                     <div className="flex justify-between items-center mb-2">
-                      <div className="text-purple-200 text-sm font-medium">{f.feature}</div>
-                      <div className="font-bold text-white">{(f.impact ?? 0).toFixed(2)}</div>
+                      <div className="text-slate-600 text-sm font-medium">{f.feature}</div>
+                      <div className="font-bold text-slate-800">{(f.impact ?? 0).toFixed(2)}</div>
                     </div>
-                    <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-gradient-to-r from-purple-400 to-pink-400 rounded-full transition-all duration-1000"
+                        className="h-full bg-gradient-to-r from-teal-400 to-cyan-400 rounded-full transition-all duration-1000"
                         style={{ width: `${Math.min(100, Math.abs(f.impact) * 100)}%` }}
                       />
                     </div>
                   </div>
-                )) : <div className="text-sm text-purple-400">No feature analysis available.</div>}
+                )) : <div className="text-sm text-slate-500">No feature analysis available.</div>}
               </div>
             </div>
 
-            <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-2xl shadow-xl p-6 border border-white/20 animate-fadeInRight" style={{ animationDelay: '100ms' }}>
-              <h4 className="font-bold text-white mb-4">Quick Actions</h4>
+            <div className="backdrop-blur-xl bg-white/95 rounded-2xl shadow-xl p-6 border border-slate-200 animate-fadeInRight" style={{ animationDelay: '100ms' }}>
+              <h4 className="font-bold text-slate-800 mb-4">Quick Actions</h4>
               <div className="space-y-3">
                 <button 
                   onClick={() => router.push('/prevention')} 
@@ -538,25 +538,25 @@ export default function ComorbidityPage() {
                 </button>
                 <button 
                   onClick={() => alert('Feature: share with doctor (stub)')} 
-                  className="w-full backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-medium border border-white/20 transition-all duration-300"
+                  className="w-full bg-white hover:bg-slate-50 text-slate-700 py-3 rounded-xl font-medium border border-slate-300 transition-all duration-300"
                 >
                   Share with Clinician
                 </button>
                 <button 
                   onClick={() => alert('Feature: schedule consult (stub)')} 
-                  className="w-full backdrop-blur-sm bg-white/10 hover:bg-white/20 text-white py-3 rounded-xl font-medium border border-white/20 transition-all duration-300"
+                  className="w-full bg-white hover:bg-slate-50 text-slate-700 py-3 rounded-xl font-medium border border-slate-300 transition-all duration-300"
                 >
                   Schedule Consultation
                 </button>
               </div>
             </div>
 
-            <div className="backdrop-blur-xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-2xl shadow-xl p-6 border border-amber-500/20 animate-fadeInRight" style={{ animationDelay: '200ms' }}>
+            <div className="backdrop-blur-xl bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl shadow-xl p-6 border border-amber-200 animate-fadeInRight" style={{ animationDelay: '200ms' }}>
               <div className="flex items-start gap-3">
                 <div className="text-2xl">⚠️</div>
                 <div>
-                  <div className="font-bold text-amber-200 mb-2">Important Notice</div>
-                  <div className="text-sm text-amber-100/80 leading-relaxed">
+                  <div className="font-bold text-amber-700 mb-2">Important Notice</div>
+                  <div className="text-sm text-amber-600 leading-relaxed">
                     These projections are estimated and intended for guidance only. Consult a clinician for medical decisions.
                   </div>
                 </div>
@@ -568,8 +568,8 @@ export default function ComorbidityPage() {
         {/* Detailed timeline */}
         {step === 'results' && (
           <section className="mt-8 animate-fadeIn">
-            <div className="backdrop-blur-xl bg-gradient-to-br from-white/10 to-white/5 rounded-3xl shadow-2xl p-8 border border-white/20">
-              <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 mb-6">
+            <div className="backdrop-blur-xl bg-white/95 rounded-3xl shadow-2xl p-8 border border-slate-200">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-6">
                 Detailed Timeline & Recommendations
               </h3>
 
@@ -577,43 +577,43 @@ export default function ComorbidityPage() {
                 {predictions.map((p, idx) => (
                   <div 
                     key={idx} 
-                    className="group backdrop-blur-sm bg-white/5 rounded-2xl p-6 border border-white/10 hover:bg-white/10 transition-all duration-300 animate-fadeInUp"
+                    className="group bg-gradient-to-r from-teal-50 to-cyan-50 rounded-2xl p-6 border border-teal-200 hover:shadow-lg transition-all duration-300 animate-fadeInUp"
                     style={{ animationDelay: `${idx * 100}ms` }}
                   >
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <span className="backdrop-blur-sm bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-bold border border-purple-500/30">
+                          <span className="bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-xs font-bold border border-teal-300">
                             {p.years} {p.years === 1 ? 'year' : 'years'} out
                           </span>
                           {p.preventable && (
-                            <span className="backdrop-blur-sm bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full text-xs font-bold border border-emerald-500/30">
+                            <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold border border-emerald-300">
                               ✓ Preventable
                             </span>
                           )}
                         </div>
-                        <div className="text-xl font-bold text-white mb-2">{p.condition}</div>
-                        <div className="text-purple-200">{p.rationale}</div>
+                        <div className="text-xl font-bold text-slate-800 mb-2">{p.condition}</div>
+                        <div className="text-slate-600">{p.rationale}</div>
                       </div>
 
                       <div className="flex items-center gap-4">
                         <div className="text-center">
-                          <div className={`inline-block px-6 py-3 rounded-2xl font-bold text-lg backdrop-blur-sm border ${
-                            p.probability >= 70 ? 'bg-rose-500/20 text-rose-300 border-rose-500/30' : 
-                            p.probability >= 50 ? 'bg-amber-500/20 text-amber-300 border-amber-500/30' : 
-                            'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                          <div className={`inline-block px-6 py-3 rounded-2xl font-bold text-lg border ${
+                            p.probability >= 70 ? 'bg-rose-100 text-rose-700 border-rose-300' : 
+                            p.probability >= 50 ? 'bg-amber-100 text-amber-700 border-amber-300' : 
+                            'bg-emerald-100 text-emerald-700 border-emerald-300'
                           }`}>
                             {p.probability}%
                           </div>
-                          <div className="text-xs text-purple-400 mt-2">Risk Level</div>
+                          <div className="text-xs text-slate-600 mt-2">Risk Level</div>
                         </div>
 
                         <button 
                           onClick={() => toggleExpand(p.condition)} 
-                          className="backdrop-blur-sm bg-white/10 hover:bg-white/20 p-3 rounded-xl border border-white/20 transition-all duration-300"
+                          className="bg-white hover:bg-slate-50 p-3 rounded-xl border border-slate-300 transition-all duration-300"
                         >
                           <svg 
-                            className={`w-5 h-5 text-purple-300 transform transition-transform duration-300 ${expanded[p.condition] ? 'rotate-180' : ''}`} 
+                            className={`w-5 h-5 text-slate-600 transform transition-transform duration-300 ${expanded[p.condition] ? 'rotate-180' : ''}`} 
                             fill="none" 
                             stroke="currentColor" 
                             viewBox="0 0 24 24"
@@ -625,20 +625,20 @@ export default function ComorbidityPage() {
                     </div>
 
                     {expanded[p.condition] && (
-                      <div className="mt-6 pt-6 border-t border-white/10 animate-fadeIn">
-                        <div className="mb-3 text-sm font-bold text-purple-200">Recommended Interventions:</div>
+                      <div className="mt-6 pt-6 border-t border-teal-200 animate-fadeIn">
+                        <div className="mb-3 text-sm font-bold text-teal-700">Recommended Interventions:</div>
                         <div className="grid md:grid-cols-2 gap-3">
                           {p.interventions.map((it, i) => (
                             <div 
                               key={i} 
-                              className="backdrop-blur-sm bg-blue-500/10 p-3 rounded-xl border border-blue-500/20 text-blue-200 hover:bg-blue-500/20 transition-all duration-300"
+                              className="bg-sky-50 p-3 rounded-xl border border-sky-200 text-sky-700 hover:bg-sky-100 transition-all duration-300"
                             >
-                              <span className="text-blue-400 mr-2">→</span>{it}
+                              <span className="text-sky-500 mr-2">→</span>{it}
                             </div>
                           ))}
                         </div>
                         {p.citations && p.citations.length > 0 && (
-                          <div className="mt-4 text-xs text-purple-400">
+                          <div className="mt-4 text-xs text-slate-500">
                             📚 Citations: {p.citations.join(', ')}
                           </div>
                         )}

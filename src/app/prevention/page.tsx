@@ -187,21 +187,21 @@ export default function PreventionProgramPage() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch(difficulty) {
-      case 'easy': return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
-      case 'medium': return 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-      case 'hard': return 'bg-rose-500/20 text-rose-300 border-rose-500/30';
-      default: return 'bg-gray-500/20 text-gray-300 border-gray-500/30';
+      case 'easy': return 'bg-emerald-100 text-emerald-700 border-emerald-300';
+      case 'medium': return 'bg-amber-100 text-amber-700 border-amber-300';
+      case 'hard': return 'bg-rose-100 text-rose-700 border-rose-300';
+      default: return 'bg-gray-100 text-gray-700 border-gray-300';
     }
   };
 
   const getCategoryGradient = (category: string) => {
     switch(category) {
-      case 'exercise': return 'from-orange-600 to-red-600';
-      case 'nutrition': return 'from-green-600 to-emerald-600';
-      case 'mindfulness': return 'from-purple-600 to-pink-600';
-      case 'sleep': return 'from-indigo-600 to-blue-600';
-      case 'hydration': return 'from-cyan-600 to-blue-600';
-      default: return 'from-purple-600 to-pink-600';
+      case 'exercise': return 'from-orange-400 to-red-500';
+      case 'nutrition': return 'from-emerald-400 to-green-500';
+      case 'mindfulness': return 'from-teal-400 to-cyan-500';
+      case 'sleep': return 'from-indigo-400 to-blue-500';
+      case 'hydration': return 'from-sky-400 to-blue-500';
+      default: return 'from-teal-400 to-cyan-500';
     }
   };
 
@@ -219,60 +219,60 @@ export default function PreventionProgramPage() {
     : dailyChallenges.filter(c => c.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-sky-50">
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-sky-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Header with Score */}
-      <header className="relative backdrop-blur-xl bg-white/10 border-b border-white/20">
+      <header className="relative backdrop-blur-xl bg-white/85 border-b border-slate-200 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
             <div className="flex items-center space-x-6 animate-fadeInLeft">
               <button 
                 onClick={() => router.push('/dashboard')} 
-                className="text-purple-200 hover:text-white transition-colors"
+                className="text-slate-600 hover:text-slate-800 transition-colors"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
-              <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-200 to-pink-200">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
                 Prevention Challenge Hub
               </h1>
             </div>
             
             {/* User Stats Bar */}
             <div className="flex items-center space-x-6 animate-fadeInRight">
-              <div className="backdrop-blur-sm bg-white/10 rounded-2xl px-4 py-3 border border-white/20 hover:scale-105 transition-all duration-300">
+              <div className="bg-white/90 rounded-2xl px-4 py-3 border border-teal-200 hover:scale-105 transition-all duration-300 shadow-md">
                 <div className="flex items-center space-x-3">
                   <span className="text-3xl animate-pulse">🏆</span>
                   <div>
-                    <p className="text-xs text-purple-300 font-semibold">Score</p>
-                    <p className="text-2xl font-bold text-white">{animatedScore.toLocaleString()}</p>
+                    <p className="text-xs text-teal-600 font-bold">Score</p>
+                    <p className="text-2xl font-bold text-slate-800">{animatedScore.toLocaleString()}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="backdrop-blur-sm bg-white/10 rounded-2xl px-4 py-3 border border-white/20 hover:scale-105 transition-all duration-300">
+              <div className="bg-white/90 rounded-2xl px-4 py-3 border border-amber-200 hover:scale-105 transition-all duration-300 shadow-md">
                 <div className="flex items-center space-x-3">
                   <span className="text-3xl">⭐</span>
                   <div>
-                    <p className="text-xs text-purple-300 font-semibold">Level</p>
-                    <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-orange-300">{userLevel}</p>
+                    <p className="text-xs text-amber-600 font-bold">Level</p>
+                    <p className="text-2xl font-bold text-amber-700">{userLevel}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="backdrop-blur-sm bg-white/10 rounded-2xl px-4 py-3 border border-white/20 hover:scale-105 transition-all duration-300">
+              <div className="bg-white/90 rounded-2xl px-4 py-3 border border-orange-200 hover:scale-105 transition-all duration-300 shadow-md">
                 <div className="flex items-center space-x-3">
                   <span className="text-3xl animate-pulse-slow">🔥</span>
                   <div>
-                    <p className="text-xs text-purple-300 font-semibold">Streak</p>
-                    <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-orange-300 to-red-300">
+                    <p className="text-xs text-orange-600 font-bold">Streak</p>
+                    <p className="text-2xl font-bold text-orange-700">
                       {userStreak} <span className="text-sm">days</span>
                     </p>
                   </div>
@@ -282,15 +282,15 @@ export default function PreventionProgramPage() {
           </div>
           
           {/* Level Progress Bar */}
-          <div className="mt-6 backdrop-blur-sm bg-white/5 rounded-2xl p-4 border border-white/10">
-            <div className="flex justify-between text-sm text-purple-300 mb-2 font-semibold">
+          <div className="mt-6 bg-white/70 rounded-2xl p-4 border border-slate-200">
+            <div className="flex justify-between text-sm text-slate-600 mb-2 font-semibold">
               <span>Level {userLevel}</span>
-              <span className="text-purple-200">{userScore % 100}/100 XP to Level {userLevel + 1}</span>
+              <span className="text-teal-600">{userScore % 100}/100 XP to Level {userLevel + 1}</span>
             </div>
-            <div className="relative w-full bg-white/10 rounded-full h-3 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></div>
+            <div className="relative w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+              <div className="absolute inset-0 bg-teal-100 animate-pulse"></div>
               <div 
-                className="relative bg-gradient-to-r from-purple-400 to-pink-400 h-3 rounded-full transition-all duration-1000 ease-out shadow-lg"
+                className="relative bg-gradient-to-r from-teal-400 to-cyan-400 h-3 rounded-full transition-all duration-1000 ease-out shadow-sm"
                 style={{ width: `${levelProgress}%` }}
               >
                 <div className="absolute inset-0 bg-white/30 animate-shimmer"></div>
@@ -305,7 +305,7 @@ export default function PreventionProgramPage() {
           {/* Main Content - Challenges */}
           <div className="lg:col-span-2 space-y-6">
             {/* Category Filter */}
-            <div className="backdrop-blur-xl bg-white/10 rounded-2xl p-5 shadow-2xl border border-white/20 animate-fadeIn">
+            <div className="bg-white/95 rounded-2xl p-5 shadow-xl border border-slate-200 animate-fadeIn">
               <div className="flex space-x-3 overflow-x-auto pb-2">
                 {categories.map((category, index) => (
                   <button
@@ -313,8 +313,8 @@ export default function PreventionProgramPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`group flex items-center space-x-2 px-5 py-3 rounded-xl whitespace-nowrap transition-all duration-300 transform hover:scale-105 animate-fadeInUp ${
                       selectedCategory === category.id
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/30'
-                        : 'backdrop-blur-sm bg-white/10 hover:bg-white/20 text-purple-200 border border-white/20'
+                        ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg'
+                        : 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-300'
                     }`}
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
@@ -327,16 +327,16 @@ export default function PreventionProgramPage() {
 
             {/* Daily Challenges */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 animate-fadeInLeft">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent animate-fadeInLeft">
                 Today's Challenges
               </h2>
               {filteredChallenges.map((challenge, index) => (
                 <div 
                   key={challenge.id} 
-                  className={`group backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border-2 transition-all duration-300 hover:scale-[1.02] animate-fadeInUp ${
+                  className={`group bg-white/95 rounded-2xl shadow-xl p-6 border-2 transition-all duration-300 hover:scale-[1.02] animate-fadeInUp ${
                     challenge.completed 
-                      ? 'border-emerald-400/50 bg-emerald-500/10' 
-                      : 'border-white/20 hover:border-purple-400/50'
+                      ? 'border-emerald-400 bg-emerald-50/50' 
+                      : 'border-slate-200 hover:border-teal-300'
                   }`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
@@ -354,36 +354,36 @@ export default function PreventionProgramPage() {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
-                          <h3 className="font-bold text-xl text-white">{challenge.title}</h3>
-                          <span className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm border ${getDifficultyColor(challenge.difficulty)}`}>
+                          <h3 className="font-bold text-xl text-slate-800">{challenge.title}</h3>
+                          <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getDifficultyColor(challenge.difficulty)}`}>
                             {challenge.difficulty}
                           </span>
                         </div>
-                        <p className="text-purple-200 mb-4">{challenge.description}</p>
+                        <p className="text-slate-600 mb-4">{challenge.description}</p>
                         
                         <div className="flex items-center space-x-6 text-sm">
-                          <span className="flex items-center text-purple-300">
+                          <span className="flex items-center text-slate-500">
                             <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                             {challenge.duration}
                           </span>
-                          <span className="flex items-center font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-orange-300">
+                          <span className="flex items-center font-bold text-amber-600">
                             ⚡ +{challenge.points} pts
                           </span>
                         </div>
 
                         {/* Progress Bar */}
                         <div className="mt-4">
-                          <div className="flex justify-between text-xs text-purple-300 mb-2 font-semibold">
+                          <div className="flex justify-between text-xs text-slate-500 mb-2 font-semibold">
                             <span>Progress</span>
                             <span>{challenge.progress}%</span>
                           </div>
-                          <div className="relative w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                          <div className="relative w-full bg-slate-100 rounded-full h-3 overflow-hidden">
                             <div 
                               className={`h-3 rounded-full transition-all duration-1000 ease-out ${
                                 challenge.completed 
-                                  ? 'bg-gradient-to-r from-emerald-400 to-green-400' 
+                                  ? 'bg-gradient-to-r from-emerald-400 to-green-500' 
                                   : `bg-gradient-to-r ${getCategoryGradient(challenge.category)}`
                               }`}
                               style={{ width: `${challenge.progress}%` }}
@@ -400,8 +400,8 @@ export default function PreventionProgramPage() {
                       disabled={challenge.completed}
                       className={`px-6 py-3 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 ${
                         challenge.completed
-                          ? 'backdrop-blur-sm bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 cursor-not-allowed'
-                          : 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:shadow-xl hover:shadow-purple-500/30'
+                          ? 'bg-emerald-100 text-emerald-700 border border-emerald-300 cursor-not-allowed'
+                          : 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:shadow-xl'
                       }`}
                     >
                       {challenge.completed ? '✓ Completed' : 'Complete'}
@@ -412,8 +412,8 @@ export default function PreventionProgramPage() {
             </div>
 
             {/* Achievements Section */}
-            <div className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border border-white/20 animate-fadeIn">
-              <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 mb-6">
+            <div className="bg-white/95 rounded-2xl shadow-xl p-6 border border-slate-200 animate-fadeIn">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-6">
                 Achievements
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -422,15 +422,15 @@ export default function PreventionProgramPage() {
                     key={achievement.id}
                     className={`group text-center p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 animate-fadeInUp ${
                       achievement.unlocked 
-                        ? 'backdrop-blur-sm bg-gradient-to-br from-yellow-500/20 to-orange-500/20 border-yellow-500/30 hover:border-yellow-400/50' 
-                        : 'backdrop-blur-sm bg-white/5 border-white/10 opacity-50'
+                        ? 'bg-gradient-to-br from-amber-50 to-orange-50 border-amber-300 hover:border-amber-400' 
+                        : 'bg-slate-50 border-slate-200 opacity-50'
                     }`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <span className="text-4xl group-hover:animate-bounce inline-block">{achievement.icon}</span>
-                    <p className="font-bold text-sm mt-3 text-white">{achievement.title}</p>
+                    <p className="font-bold text-sm mt-3 text-slate-800">{achievement.title}</p>
                     {achievement.unlocked && achievement.date && (
-                      <p className="text-xs text-purple-300 mt-1">{achievement.date}</p>
+                      <p className="text-xs text-slate-500 mt-1">{achievement.date}</p>
                     )}
                   </div>
                 ))}
@@ -441,8 +441,8 @@ export default function PreventionProgramPage() {
           {/* Sidebar - Leaderboard */}
           <div className="space-y-6">
             {/* Friends Leaderboard */}
-            <div className="backdrop-blur-xl bg-white/10 rounded-2xl shadow-2xl p-6 border border-white/20 animate-fadeInRight">
-              <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 mb-6 flex items-center">
+            <div className="bg-white/95 rounded-2xl shadow-xl p-6 border border-slate-200 animate-fadeInRight">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent mb-6 flex items-center">
                 <span className="mr-3 text-3xl">🏅</span> Friend Leaderboard
               </h2>
               
@@ -455,23 +455,23 @@ export default function PreventionProgramPage() {
                       key={friend.id}
                       className={`group flex items-center justify-between p-4 rounded-xl transition-all duration-300 hover:scale-[1.02] animate-fadeInUp ${
                         friend.name === 'You'
-                          ? 'bg-gradient-to-r from-purple-600/30 to-pink-600/30 border-2 border-purple-400/50'
-                          : 'backdrop-blur-sm bg-white/5 border border-white/10 hover:bg-white/10'
+                          ? 'bg-gradient-to-r from-teal-50 to-cyan-50 border-2 border-teal-300'
+                          : 'bg-white border border-slate-200 hover:border-slate-300'
                       }`}
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
                       <div className="flex items-center space-x-3">
                         <span className={`text-xl font-bold w-8 ${
-                          index === 0 ? 'text-yellow-400' :
-                          index === 1 ? 'text-gray-300' :
-                          index === 2 ? 'text-orange-400' :
-                          'text-purple-400'
+                          index === 0 ? 'text-yellow-500' :
+                          index === 1 ? 'text-gray-400' :
+                          index === 2 ? 'text-orange-500' :
+                          'text-slate-500'
                         }`}>
                           {index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : index + 1}
                         </span>
                         <span className="text-3xl">{friend.avatar}</span>
                         <div>
-                          <p className="font-bold text-white flex items-center">
+                          <p className="font-bold text-slate-800 flex items-center">
                             {friend.name}
                             {friend.status === 'online' && (
                               <span className="ml-2 relative flex h-2 w-2">
@@ -480,44 +480,44 @@ export default function PreventionProgramPage() {
                               </span>
                             )}
                           </p>
-                          <div className="flex items-center space-x-3 text-xs text-purple-300">
+                          <div className="flex items-center space-x-3 text-xs text-slate-500">
                             <span>Lvl {friend.level}</span>
-                            <span className="text-orange-300">🔥 {friend.streak}d</span>
+                            <span className="text-orange-600">🔥 {friend.streak}d</span>
                           </div>
                         </div>
                       </div>
-                      <p className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300 text-lg">
+                      <p className="font-bold text-teal-600 text-lg">
                         {friend.score.toLocaleString()}
                       </p>
                     </div>
                   ))}
               </div>
 
-              <button className="w-full mt-6 backdrop-blur-sm bg-gradient-to-r from-purple-600/50 to-pink-600/50 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 rounded-xl transition-all duration-300 border border-white/20 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30">
+              <button className="w-full mt-6 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white font-bold py-3 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg">
                 Challenge a Friend
               </button>
             </div>
 
             {/* Community Challenge */}
-            <div className="relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-blue-600/80 to-purple-600/80 rounded-2xl shadow-2xl p-6 text-white border border-white/20 animate-fadeInRight" style={{ animationDelay: '200ms' }}>
+            <div className="relative overflow-hidden bg-gradient-to-br from-sky-500 to-teal-500 rounded-2xl shadow-xl p-6 text-white animate-fadeInRight" style={{ animationDelay: '200ms' }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
               <h3 className="font-bold text-xl mb-3 relative z-10">🌟 Community Challenge</h3>
-              <p className="text-purple-100 mb-4 relative z-10">Walk 1 Million Steps Together!</p>
+              <p className="text-sky-100 mb-4 relative z-10">Walk 1 Million Steps Together!</p>
               <div className="mb-4 relative z-10">
-                <div className="flex justify-between text-xs text-purple-200 mb-2 font-semibold">
+                <div className="flex justify-between text-xs text-sky-100 mb-2 font-semibold">
                   <span>Community Progress</span>
                   <span>742,350 / 1,000,000</span>
                 </div>
                 <div className="relative w-full bg-white/20 rounded-full h-4 overflow-hidden">
                   <div 
-                    className="bg-gradient-to-r from-white to-purple-200 h-4 rounded-full transition-all duration-1000 ease-out"
+                    className="bg-white h-4 rounded-full transition-all duration-1000 ease-out"
                     style={{ width: '74%' }}
                   >
                     <div className="absolute inset-0 bg-white/30 animate-shimmer"></div>
                   </div>
                 </div>
               </div>
-              <div className="flex justify-between text-sm text-purple-200 relative z-10">
+              <div className="flex justify-between text-sm text-sky-100 relative z-10">
                 <span>👥 234 participants</span>
                 <span>⏱ 3 days left</span>
               </div>
@@ -529,14 +529,14 @@ export default function PreventionProgramPage() {
       {/* Reward Popup */}
       {showReward && (
         <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-          <div className="backdrop-blur-xl bg-gradient-to-br from-purple-600/90 to-pink-600/90 rounded-3xl shadow-2xl p-10 transform animate-bounceIn pointer-events-auto border border-white/20">
+          <div className="bg-gradient-to-br from-emerald-500 to-teal-500 rounded-3xl shadow-2xl p-10 transform animate-bounceIn pointer-events-auto">
             <div className="text-center">
               <span className="text-7xl inline-block animate-spin-slow">🎉</span>
               <h2 className="text-3xl font-bold text-white mt-4">Challenge Complete!</h2>
-              <p className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-orange-300 mt-3">
+              <p className="text-5xl font-bold text-white mt-3">
                 +{earnedPoints}
               </p>
-              <p className="text-purple-200 mt-3 text-lg">Keep up the great work!</p>
+              <p className="text-emerald-100 mt-3 text-lg">Keep up the great work!</p>
             </div>
           </div>
         </div>
@@ -545,12 +545,12 @@ export default function PreventionProgramPage() {
       {/* Level Up Popup */}
       {showLevelUp && (
         <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none">
-          <div className="backdrop-blur-xl bg-gradient-to-br from-yellow-600/90 to-orange-600/90 rounded-3xl shadow-2xl p-10 transform animate-bounceIn pointer-events-auto border border-white/20">
+          <div className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-3xl shadow-2xl p-10 transform animate-bounceIn pointer-events-auto">
             <div className="text-center">
               <span className="text-7xl inline-block animate-pulse">⭐</span>
               <h2 className="text-3xl font-bold text-white mt-4">LEVEL UP!</h2>
               <p className="text-5xl font-bold text-white mt-3">Level {userLevel}</p>
-              <p className="text-yellow-200 mt-3 text-lg">New challenges unlocked!</p>
+              <p className="text-amber-100 mt-3 text-lg">New challenges unlocked!</p>
             </div>
           </div>
         </div>
